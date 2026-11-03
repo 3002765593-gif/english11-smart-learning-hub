@@ -53,6 +53,26 @@ footer{text-align:center;color:#77829b;padding:30px;font-size:12px}
 </nav>
 </header>
 
+<section id="studentLogin" style="max-width:500px;margin:24px auto;padding:24px;background:white;border-radius:16px;box-shadow:0 4px 16px #0001;">
+  <h2>🔐 Đăng nhập học sinh</h2>
+  <p>Nhập tài khoản và mật khẩu do giáo viên cấp.</p>
+
+  <input id="loginEmail" type="email"
+    placeholder="Email học sinh"
+    autocomplete="username"
+    style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
+
+  <input id="loginPassword" type="password"
+    placeholder="Mật khẩu"
+    autocomplete="current-password"
+    style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
+
+  <button type="button" onclick="submitStudentLogin()">
+    Đăng nhập
+  </button>
+
+  <p id="loginStatus" role="status"></p>
+</section>
 <main id="app"></main>
 
 <footer>
