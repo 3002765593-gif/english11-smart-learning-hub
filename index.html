@@ -773,5 +773,45 @@ function exportCSV(){
 
 render();
 </script>
+  
+async function saveLearningResult(unitNumber, activityType, activityName, score) {
+  try {
+    // Lấy tài khoản học sinh đang đăng nhập
+    const { data: { user }, error: userError } =
+      await supabaseClient.auth.getUser();
+
+    if (userError || !user) {
+      alert("Bạn cần đăng nhập trước khi lưu điểm!");
+      return;
+    }
+
+    // Lưu kết quả vào Supabase
+    const { data, error } = await supabaseClient
+      .from("learning_results")
+      .insert({
+        student_id: user.id,
+        unit_number: unitNumber,
+        activity_type: activityType,
+        activity_name: activityName,
+        score: score
+      })
+      .select();
+
+    if (error) {
+      console.error("Lỗi lưu điểm:", error);
+      alert("Không lưu được điểm: " + error.message);
+      return;
+    }
+
+    console.log("Đã lưu kết quả:", data);
+    alert("Đã lưu điểm thành công!");
+    return data;
+
+  } catch (err) {
+    console.error("Lỗi hệ thống:", err);
+    alert("Có lỗi xảy ra khi lưu điểm.");
+  }
+}
+
 </body>
 </html>
