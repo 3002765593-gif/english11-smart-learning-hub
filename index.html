@@ -73,6 +73,31 @@ const supabaseClient = window.supabase.createClient(
 );
 const STORAGE_KEY="english11_hub_demo_v2";
 
+async function loginStudent(email, password) {
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
+
+  if (error) {
+    alert("Đăng nhập thất bại: " + error.message);
+    return;
+  }
+
+  const { data: profile, error: profileError } = await supabaseClient
+    .from("student_profiles")
+    .select("student_code, class_id")
+    .eq("user_id", data.user.id)
+    .single();
+
+  if (profileError || !profile) {
+    alert("Đăng nhập thành công nhưng chưa tìm thấy hồ sơ học sinh.");
+    return;
+  }
+
+  alert("Đăng nhập thành công! Mã học sinh: " + profile.student_code);
+}
+
 function loadData(){
   try{
     const old=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");
