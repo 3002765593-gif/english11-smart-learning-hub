@@ -118,6 +118,25 @@ async function loginStudent(email, password) {
   alert("Đăng nhập thành công! Mã học sinh: " + profile.student_code);
 }
 
+async function submitStudentLogin() {
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+  const status = document.getElementById("loginStatus");
+
+  if (!email || !password) {
+    status.textContent = "Vui lòng nhập đủ email và mật khẩu.";
+    return;
+  }
+
+  status.textContent = "Đang đăng nhập...";
+
+  try {
+    await loginStudent(email, password);
+    status.textContent = "Đã xử lý yêu cầu. Xem thông báo đăng nhập.";
+  } catch (error) {
+    status.textContent = "Có lỗi: " + error.message;
+  }
+}
 function loadData(){
   try{
     const old=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");
