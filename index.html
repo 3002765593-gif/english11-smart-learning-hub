@@ -139,8 +139,7 @@ document.getElementById("app").scrollIntoView({ behavior: "smooth" });
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-  async function submitStudentLogin() {
-async function saveLearningResult(unitNumber, activityType, activityName, score) {
+ async function saveLearningResult(unitNumber, activityType, activityName, score) {
   const { data: { user }, error: userError } =
     await supabaseClient.auth.getUser();
 
@@ -168,6 +167,7 @@ async function saveLearningResult(unitNumber, activityType, activityName, score)
   alert("Đã lưu kết quả học tập thành công!");
   return true;
 }
+ async function submitStudentLogin() {
 
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
