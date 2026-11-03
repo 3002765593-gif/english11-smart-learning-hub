@@ -7,11 +7,16 @@
 
 const SUPABASE_URL = 'https://fkharblzowborvywjpbx.supabase.co';
 
-const SUPABASE_PUBLISHABLE_KEY = sb_publishable_1T2JLpwTueTdNjbeUpZH4w_TbwfCOx5;
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_1T2JLpwTueTdNjbeUpZH4w_TbwfCOx5';
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY async function testSupabaseConnection() {
+ 
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+async function testSupabaseConnection() {
+
   const { data, error } = await supabaseClient
     .from('classes')
     .select('id, class_name, school_year')
