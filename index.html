@@ -1,53 +1,654 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>English 11 Smart Learning Hub</title><style>
-:root{font-family:Inter,system-ui,Arial,sans-serif;color:#213052;background:#f5f7ff}*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button{cursor:pointer}.top{background:linear-gradient(110deg,#253d91,#6651ba);color:white;padding:22px max(20px,calc((100vw - 1100px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.brand{font-size:21px;font-weight:850}.sub{font-size:12px;opacity:.82}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{border:1px solid #ffffff55;background:#ffffff1c;color:white;border-radius:12px;padding:10px 14px}.tabs button.active{background:white;color:#283d88}.wrap{max-width:1100px;margin:26px auto;padding:0 18px}.hero{border-radius:22px;padding:28px;background:linear-gradient(115deg,#e2eaff,#f0e8ff);margin-bottom:22px}.hero h1{margin:0 0 8px;font-size:30px}.muted{color:#65718a}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:15px}.card{background:white;border:1px solid #e2e6f2;border-radius:18px;padding:20px;box-shadow:0 5px 20px #1e2b6010}.card h3{margin:8px 0}.pill{display:inline-block;border-radius:30px;background:#e9edff;color:#354f9b;font-weight:750;font-size:12px;padding:5px 10px}.btn{border:0;background:#344fba;color:white;border-radius:11px;padding:11px 16px;font-weight:700}.btn.secondary{background:#eef1ff;color:#31458b}.btn:disabled{opacity:.5;cursor:not-allowed}.section{margin:25px 0 12px}.options{display:grid;gap:10px;margin:18px 0}.option{padding:13px;border:1px solid #d7dff1;border-radius:12px;background:white;text-align:left;color:#273552}.option.selected{border:2px solid #4c6de0;background:#edf2ff}.option.good{border-color:#2d9a70;background:#e6f7ef}.option.bad{border-color:#db5a64;background:#ffedef}.feedback{padding:14px;background:#eef6ff;border-radius:12px;margin:12px 0}.stat{font-size:30px;font-weight:850;color:#344fba}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.row.between{justify-content:space-between}.hide{display:none!important}label{display:block;margin:12px 0 5px;font-weight:650}input,select{padding:11px;border:1px solid #cdd6ec;border-radius:10px;width:100%;background:white}table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #e4e8f4;padding:11px;text-align:left;font-size:14px}.small{font-size:13px}.notice{border-left:4px solid #e9a73e;padding:12px 15px;background:#fff9e8;border-radius:7px}.navline{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}.navline button{border:1px solid #d7def0;background:white;border-radius:9px;padding:8px 11px}.navline button.active{background:#344fba;color:white}.footer{text-align:center;padding:30px;color:#73809b;font-size:12px}.progress{height:9px;background:#e5e9f7;border-radius:20px;overflow:hidden}.progress>div{height:100%;background:#5a79d7}a{color:#344fba}@media(max-width:600px){.hero h1{font-size:23px}.top{padding:17px}.wrap{margin-top:16px}.card{padding:16px}}
-</style></head><body><header class="top"><div><div class="brand">🎓 English 11 Smart Learning Hub</div><div class="sub">Global Success • Learn · Practise · Play · Test · Improve</div></div><nav class="tabs"><button id="studentTab" class="active" onclick="switchZone('student')">🎒 Student Zone</button><button id="teacherTab" onclick="switchZone('teacher')">👩‍🏫 Teacher Studio</button></nav></header><main class="wrap"><div id="app"></div></main><div class="footer">Bản mẫu minh chứng sáng kiến 2026–2027 • Dữ liệu lưu trong trình duyệt này • Chưa phải hệ thống trực tuyến nhiều tài khoản</
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English 11 Smart Learning Hub</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6ff;color:#26345a}
+header{background:linear-gradient(110deg,#293d93,#6751b8);color:white;padding:24px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+header h1{margin:0;font-size:25px}
+header p{margin:7px 0 0;font-size:13px}
+nav{display:flex;gap:10px}
+button{cursor:pointer;font:inherit}
+nav button{background:#ffffff20;border:1px solid #ffffff60;color:white;padding:12px 17px;border-radius:13px}
+nav button.active{background:white;color:#34479a}
+main{max-width:1100px;margin:28px auto;padding:0 18px;min-height:65vh}
+.hero{background:linear-gradient(110deg,#e0eaff,#eee4ff);border-radius:20px;padding:28px;margin-bottom:22px}
+.hero h2{font-size:29px;margin:8px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:white;border:1px solid #e0e5f2;border-radius:17px;padding:21px;margin-bottom:15px;box-shadow:0 4px 15px #2233660b}
+.card h3{margin-top:0}
+.btn{background:#3753b7;border:0;color:white;border-radius:10px;padding:11px 17px;margin:5px 5px 5px 0;font-weight:bold}
+.btn.alt{background:#e9edff;color:#344a9a}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.muted{color:#66738f}
+.pill{display:inline-block;background:#e5eaff;color:#344da2;padding:6px 11px;border-radius:20px;font-size:12px;font-weight:bold}
+.option{display:block;width:100%;text-align:left;background:white;border:1px solid #d9e0f2;border-radius:10px;padding:13px;margin:9px 0;color:#25345c}
+.option.selected{background:#e5ecff;border:2px solid #4263cf}
+.option.correct{background:#e3f8eb;border-color:#28a06a}
+.option.wrong{background:#ffebee;border-color:#e25b69}
+.feedback{background:#edf5ff;padding:15px;border-radius:10px;margin:15px 0}
+input,select{padding:12px;border:1px solid #d2daee;border-radius:10px;width:100%;margin:7px 0 14px}
+label{font-weight:bold}
+table{border-collapse:collapse;width:100%}
+td,th{border-bottom:1px solid #e2e7f3;padding:12px;text-align:left}
+.notice{background:#fff7e6;border-left:4px solid #edb74e;padding:13px;border-radius:7px}
+footer{text-align:center;color:#77829b;padding:30px;font-size:12px}
+@media(max-width:600px){header h1{font-size:20px}.hero h2{font-size:23px}}
+</style>
+</head>
+<body>
+
+<header>
+<div>
+<h1>🎓 English 11 Smart Learning Hub</h1>
+<p>Global Success • Learn · Practise · Play · Test · Improve</p>
+</div>
+<nav>
+<button id="studentTab" class="active" onclick="switchZone('student')">🎒 Student Zone</button>
+<button id="teacherTab" onclick="switchZone('teacher')">👩‍🏫 Teacher Studio</button>
+</nav>
+</header>
+
+<main id="app"></main>
+
+<footer>
+Bản mẫu học tập năm học 2026–2027 • Dữ liệu lưu trên trình duyệt
+</footer>
+
 <script>
+"use strict";
 
+const STORAGE_KEY="english11_hub_demo_v2";
 
-const SUPABASE_URL = 'https://fkharblzowborvywjpbx.supabase.co';
+function loadData(){
+  try{
+    const old=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");
+    if(old && Array.isArray(old.results) && Array.isArray(old.assignments)){
+      return old;
+    }
+  }catch(e){
+    console.warn("Không đọc được dữ liệu cũ",e);
+  }
+  return {results:[],assignments:[]};
+}
 
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_1T2JLpwTueTdNjbeUpZH4w_TbwfCOx5';
+let db=loadData();
+let zone="student";
+let page="home";
+let lesson="getting";
+let questionIndex=0;
+let selected=null;
+let checked=false;
+let practiceAnswers={};
+let gameIndex=0;
+let gameScore=0;
+let currentTest=1;
+let testAnswers={};
+let testStarted=0;
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
- 
-  SUPABASE_PUBLISHABLE_KEY
-);
+const app=document.getElementById("app");
 
-async function testSupabaseConnection() {
-
-  const { data, error } = await supabaseClient
-    .from('classes')
-    .select('id, class_name, school_year')
-    .limit(5);
-
-  if (error) {
-    console.error('Supabase connection error:', error.message);
-  } else {
-    console.log('Supabase connection successful:', data);
+function save(){
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(db));
+  }catch(e){
+    console.warn("Không lưu được dữ liệu",e);
   }
 }
 
-testSupabaseConnection();
-const KEY = 'e11_hub_demo_v1';
-let db = JSON.parse(
-  localStorage.getItem(KEY) ||
-  '{"name":"Học sinh demo","results":[],"assignments":[]}'
-);
-let zone = 'student';
-let page = 'home';
-let lesson = 'getting';
-let qi = 0;
-const questions=[{topic:'Grammar',q:'I ____ this book three times.',o:['read','have read','am reading','was reading'],a:1,e:'Present perfect diễn tả trải nghiệm đến hiện tại; “three times” không có thời điểm quá khứ xác định.'},{topic:'Grammar',q:'She ____ to the gym yesterday.',o:['has gone','goes','went','has been'],a:2,e:'“Yesterday” là thời điểm quá khứ xác định nên dùng past simple: went.'},{topic:'Vocabulary',q:'Which word means “the condition of being physically strong and healthy”?',o:['fitness','disease','stress','symptom'],a:0,e:'Fitness: thể lực, tình trạng khỏe mạnh.'},{topic:'Grammar',q:'We ____ our grandparents since last summer.',o:["didn't visit","haven't visited","don't visit","weren't visiting"],a:1,e:'“Since last summer” gợi ý present perfect cho khoảng thời gian kéo dài đến hiện tại.'},{topic:'Vocabulary',q:'A balanced ____ includes different kinds of healthy food.',o:['habit','diet','fever','virus'],a:1,e:'Balanced diet = chế độ ăn cân bằng.'},{topic:'Grammar',q:'My brother ____ a marathon in 2023.',o:['has run','runs','ran','is running'],a:2,e:'“In 2023” chỉ mốc thời gian quá khứ xác định: past simple.'},{topic:'Reading',q:'Mai walks for 30 minutes every day and eats vegetables. Which habit is mentioned?',o:['Skipping breakfast','Daily walking','Sleeping late','Drinking soda'],a:1,e:'Ngữ liệu nêu rõ Mai walks for 30 minutes every day.'},{topic:'Vocabulary',q:'Which phrase best completes: “You should ____ regularly to stay healthy”?',o:['exercise','illness','medicine','symptom'],a:0,e:'Exercise regularly = tập thể dục đều đặn.'}];
-const tests={1:[0,1,2,3,4,5],2:[5,4,3,2,1,0]};const lessons=[['getting','Getting Started','Healthy habits & conversation'],['pronunciation','Pronunciation','Strong and weak forms'],['vocabulary','Vocabulary','Health and fitness'],['grammar','Grammar','Past Simple vs Present Perfect'],['reading','Reading','Healthy lifestyle'],['speaking','Speaking','Giving instructions'],['listening','Listening','Food and health'],['writing','Writing','A short message'],['communication','Communication & CLIL','Offering help'],['looking','Looking Back & Project','Healthy habits poster']];
-function switchZone(z){zone=z;page='home';document.getElementById('studentTab').classList.toggle('active',z==='student');document.getElementById('teacherTab').classList.toggle('active',z==='teacher');render()};function go(p,l){page=p;if(l)lesson=l;qi=0;selected=null;checked=false;answers={};render();window.scrollTo(0,0)};function badge(s){return `<span class="pill">${s}</span>`};function card(title,body,action=''){return `<div class="card"><h3>${title}</h3><div class="muted small">${body}</div>${action?`<p>${action}</p>`:''}</div>`}
-function render(){if(zone==='teacher')return renderTeacher();if(page==='home'){const attempts=db.results.length;app.innerHTML=`<div class="hero">${badge('UNIT 01 • GLOBAL SUCCESS')}<h1>A Long and Healthy Life 🌿</h1><p>Ôn tập, luyện tập, chơi game và kiểm tra theo bài học. Chào ${esc(db.name)}!</p><div class="row"><button class="btn" onclick="go('units')">Bắt đầu học Unit 1 →</button><button class="btn secondary" onclick="go('results')">Kết quả của tôi</button></div></div><div class="grid">${card('📚 Learn','Lý thuyết, ví dụ, kiến thức theo Lesson',`<button class="btn secondary" onclick="go('units')">Xem bài học</button>`)}${card('✍️ Practise','Bài tập có phản hồi và giải thích',`<button class="btn secondary" onclick="go('practice')">Luyện tập</button>`)}${card('🎮 Play','Grammar Race – trò chơi củng cố',`<button class="btn secondary" onclick="go('game')">Chơi ngay</button>`)}${card('📝 Test Center','Hai bài Test mẫu Unit 1',`<button class="btn secondary" onclick="go('tests')">Xem bài Test</button>`)}</div><h2 class="section">Tiến độ của bạn</h2><div class="grid">${card('Lượt đã hoàn thành',`<span class="stat">${attempts}</span>`)}${card('Điểm trung bình',`<span class="stat">${attempts?(db.results.reduce((s,r)=>s+r.score,0)/attempts).toFixed(1):'—'}</span> / 10`)}${card('Bài giáo viên giao',`<span class="stat">${db.assignments.length}</span>`)}</div><p class="notice small">Bản demo dùng câu hỏi biên soạn mẫu và lưu dữ liệu trên thiết bị hiện tại. Không dùng điểm demo làm minh chứng thực nghiệm chính thức.</p>`;return}
-if(page==='units'){app.innerHTML=`<div class="row between"><h1>Unit 1 – Learning Path</h1><button class="btn secondary" onclick="go('home')">← Trang chủ</button></div><div class="grid">${lessons.map(([id,n,desc])=>card(n,desc,`<button class="btn secondary" onclick="go('learn','${id}')">Mở bài học</button>`)).join('')}</div>`;return}
-if(page==='learn'){let content=lesson==='grammar'?`<h3>Past Simple</h3><p><b>Cấu trúc:</b> S + V2/ed. Dùng cho hành động đã kết thúc tại thời điểm xác định trong quá khứ.</p><p><b>Dấu hiệu:</b> yesterday, last week, in 2023, ago.</p><p><i>She went jogging yesterday.</i></p><h3>Present Perfect</h3><p><b>Cấu trúc:</b> S + have/has + V3/ed. Dùng cho trải nghiệm hoặc sự việc liên quan đến hiện tại.</p><p><b>Dấu hiệu thường gặp:</b> ever, never, already, yet, since, for.</p><p><i>I have exercised regularly for two months.</i></p><p class="notice small">Lưu ý: các dấu hiệu là gợi ý, cần xét ngữ cảnh trước khi chọn thì.</p>`:lesson==='vocabulary'?`<h3>Health & Fitness</h3><p><b>balanced diet</b> – chế độ ăn cân bằng</p><p><b>fitness</b> – thể lực</p><p><b>exercise regularly</b> – tập thể dục thường xuyên</p><p><b>healthy habit</b> – thói quen lành mạnh</p><p><b>symptom</b> – triệu chứng</p>`:lesson==='pronunciation'?`<h3>Strong and weak forms of auxiliary verbs</h3><p>Trợ động từ thường được phát âm dạng yếu khi không được nhấn mạnh; dạng mạnh có thể xuất hiện khi nhấn mạnh, phủ định hoặc ở cuối câu trả lời ngắn.</p><p><i>Yes, I HAVE.</i> (nhấn mạnh)</p><p class="notice small">Audio mẫu chưa được tích hợp ở phiên bản này.</p>`:`<h3>${lessons.find(x=>x[0]===lesson)?.[1]||'Lesson'}</h3><p>Khung bài học đã sẵn sàng. Nội dung chi tiết, audio và nhiệm vụ thực hành của phần này đang được biên soạn và kiểm duyệt.</p>`;app.innerHTML=`<div class="row between"><h1>${lessons.find(x=>x[0]===lesson)?.[1]}</h1><button class="btn secondary" onclick="go('units')">← Learning Path</button></div><div class="card">${badge('LEARN')}${content}<button class="btn" onclick="go('practice')">Luyện tập →</button></div>`;return}
-if(page==='practice')return renderPractice();if(page==='game')return renderGame();if(page==='tests')return renderTests();if(page==='taking')return renderTaking();if(page==='results'){app.innerHTML=`<div class="row between"><h1>📊 Kết quả của tôi</h1><button class="btn secondary" onclick="go('home')">← Trang chủ</button></div><div class="card">${db.results.length?`<table><tr><th>Hoạt động</th><th>Điểm</th><th>Ngày</th></tr>${db.results.slice().reverse().map(r=>`<tr><td>${esc(r.type)}</td><td>${r.score}/10</td><td>${esc(r.date)}</td></tr>`).join('')}</table>`:'Bạn chưa hoàn thành hoạt động nào.'}</div><h2 class="section">Bài được giao</h2><div class="card">${db.assignments.length?db.assignments.map(a=>`<p>📝 ${esc(a.name)} – hạn ${esc(a.deadline||'chưa đặt')} <button class="btn secondary" onclick="startTest(${a.test})">Làm bài</button></p>`).join(''):'Chưa có bài được giao.'}</div>`;return}}
-function renderPractice(){let q=questions[qi];app.innerHTML=`<div class="row between"><h1>✍️ Practise</h1><button class="btn secondary" onclick="go('home')">← Trang chủ</button></div><div class="card">${badge(q.topic)} <span class="muted small">Câu ${qi+1}/${questions.length}</span><h2>${esc(q.q)}</h2><div class="options">${q.o.map((o,i)=>`<button class="option ${selected===i?'selected':''} ${checked&&i===q.a?'good':''} ${checked&&selected===i&&i!==q.a?'bad':''}" onclick="choose(${i})" ${checked?'disabled':''}>${'ABCD'[i]}. ${esc(o)}</button>`).join('')}</div>${checked?`<div class="feedback"><b>${selected===q.a?'✓ Chính xác!':'✗ Chưa đúng.'}</b> ${esc(q.e)}</div>`:''}<div class="row"><button class="btn" onclick="${checked?'nextPractice()':'checkPractice()'}" ${selected===null?'disabled':''}>${checked?(qi===questions.length-1?'Hoàn thành':'Câu tiếp theo →'):'Kiểm tra đáp án'}</button></div></div>`};function choose(i){if(!checked){selected=i;renderPractice()}}function checkPractice(){if(selected===null)return;answers[qi]=selected;checked=true;renderPractice()}function nextPractice(){if(qi<questions.length-1){qi++;selected=null;checked=false;renderPractice()}else{let correct=questions.filter((q,i)=>answers[i]===q.a).length;record('Practise Unit 1',correct/questions.length*10);alert(`Hoàn thành: ${correct}/${questions.length} câu đúng`);go('results')}}
-function renderGame(){let seq=[2,4,7,0,1];if(gameIndex>=seq.length){record('Grammar Race',gameScore/seq.length*10);let s=gameScore;gameIndex=0;gameScore=0;app.innerHTML=`<div class="hero"><h1>🏆 Hoàn thành thử thách!</h1><h2>${s}/${seq.length} câu đúng</h2><button class="btn" onclick="go('home')">Về trang chủ</button> <button class="btn secondary" onclick="go('game')">Chơi lại</button></div>`;return}let q=questions[seq[gameIndex]];app.innerHTML=`<div class="row between"><h1>🎮 Grammar Race</h1><button class="btn secondary" onclick="go('home')">Thoát</button></div><div class="card">${badge(`Vòng ${gameIndex+1}/5`)}<h2>${esc(q.q)}</h2><div class="options">${q.o.map((o,i)=>`<button class="option" onclick="gameAnswer(${i})">${'ABCD'[i]}. ${esc(o)}</button>`).join('')}</div><p class="muted small">Mỗi đáp án đúng được 1 điểm. Đây là game luyện tập mẫu.</p></div>`};function gameAnswer(i){let seq=[2,4,7,0,1],q=questions[seq[gameIndex]];if(i===q.a)gameScore++;gameIndex++;renderGame()}
-function renderTests(){app.innerHTML=`<div class="row between"><h1>📝 Unit 1 – Test Center</h1><button class="btn secondary" onclick="go('home')">← Trang chủ</button></div><p class="notice">Hai đề bên dưới là <b>bản mẫu 6 câu/đề</b> để kiểm thử quy trình. Mục tiêu chính thức: 40 câu/50 phút theo định hướng thi tốt nghiệp THPT từ năm 2025; cần biên soạn và kiểm duyệt bổ sung.</p><div class="grid">${[1,2].map(i=>card(`Unit 1 – Test 0${i}`,'6 câu mẫu • chấm điểm tự động • có giải thích sau khi nộp',`<button class="btn" onclick="startTest(${i})">Bắt đầu Test ${i}</button>`)).join('')}</div>`};function startTest(id){testId=id;answers={};testStart=Date.now();page='taking';render()};function renderTaking(){let ids=tests[testId];app.innerHTML=`<div class="row between"><h1>Unit 1 – Test 0${testId}</h1><span class="pill">${Object.keys(answers).length}/${ids.length} câu đã chọn</span></div><div class="card"><p class="muted">Bản mẫu: không giới hạn thời gian. Đề chính thức sẽ áp dụng 50 phút.</p>${ids.map((id,j)=>{let q=questions[id];return `<div style="border-top:1px solid #e5e9f3;padding:14px 0"><b>Câu ${j+1}.</b> ${esc(q.q)}<div class="options">${q.o.map((o,k)=>`<button class="option ${answers[j]===k?'selected':''}" onclick="testAnswer(${j},${k})">${'ABCD'[k]}. ${esc(o)}</button>`).join('')}</div></div>`}).join('')}<button class="btn" onclick="submitTest()">Nộp bài</button></div>`};function testAnswer(j,k){answers[j]=k;renderTaking()};function submitTest(){let ids=tests[testId],correct=ids.filter((id,j)=>answers[j]===questions[id].a).length,score=correct/ids.length*10;record('Unit 1 – Test 0'+testId,score);app.innerHTML=`<div class="hero"><h1>🎉 Đã nộp bài!</h1><div class="stat">${score.toFixed(1)}/10</div><p>Đúng ${correct}/${ids.length} câu • ${Math.max(1,Math.round((Date.now()-testStart)/1000))} giây</p><button class="btn" onclick="go('results')">Xem lịch sử</button> <button class="btn secondary" onclick="go('tests')">Test Center</button></div><h2>Giải thích đáp án</h2>${ids.map((id,j)=>card(`Câu ${j+1}: ${questions[id].q}`,`Đáp án: ${'ABCD'[questions[id].a]}. ${questions[id].o[questions[id].a]}<br>${questions[id].e}`)).join('')}`};function record(type,score){db.results.push({type,score:Math.round(score*10)/10,date:new Date().toLocaleString('vi-VN')});save()}
-function renderTeacher(){let results=db.results;app.innerHTML=`<div class="hero"><h1>👩‍🏫 Teacher Studio</h1><p>Không gian quản lý bản mẫu • Sử dụng dữ liệu trên cùng trình duyệt</p></div><div class="grid">${card('Lượt hoàn thành',`<span class="stat">${results.length}</span>`)}${card('Điểm trung bình',`<span class="stat">${results.length?(results.reduce((s,r)=>s+r.score,0)/results.length).toFixed(1):'—'}</span>/10`)}${card('Bài đã giao',`<span class="stat">${db.assignments.length}</span>`)}</div><h2 class="section">Giao bài cho học sinh demo</h2><div class="card"><label>Tên bài giao</label><input id="assignName" value="Unit 1 – Test 01"><label>Chọn bài</label><select id="assignTest"><option value="1">Test 01</option><option value="2">Test 02</option></select><label>Hạn nộp</label><input type="date" id="assignDate"><p><button class="btn" onclick="addAssignment()">+ Giao bài</button></p><p class="muted small">Trong bản mẫu, bài giao chỉ xuất hiện trên cùng thiết bị/trình duyệt. Chức năng lớp học nhiều tài khoản sẽ cần cơ sở dữ liệu và đăng nhập.</p></div><h2 class="section">Kết quả làm bài</h2><div class="card">${results.length?`<table><tr><th>Hoạt động</th><th>Điểm</th><th>Ngày</th></tr>${results.slice().reverse().map(r=>`<tr><td>${esc(r.type)}</td><td>${r.score}/10</td><td>${esc(r.date)}</td></tr>`).join('')}</table>`:'Chưa có dữ liệu.'}<p><button class="btn secondary" onclick="exportCsv()">⬇ Xuất CSV</button></p></div><h2 class="section">Danh sách bài đã giao</h2><div class="card">${db.assignments.length?db.assignments.map(a=>`<p>📝 ${esc(a.name)} – Test ${a.test} – hạn ${esc(a.deadline||'chưa đặt')}</p>`).join(''):'Chưa có bài giao.'}</div>`};function addAssignment(){let name=document.getElementById('assignName').value.trim(),test=+document.getElementById('assignTest').value,deadline=document.getElementById('assignDate').value;if(!name)return alert('Vui lòng nhập tên bài.');db.assignments.push({name,test,deadline});save();renderTeacher()};function exportCsv(){let rows=[['Hoạt động','Điểm / 10','Ngày'],...db.results.map(r=>[r.type,r.score,r.date])],csv='\ufeff'+rows.map(row=>row.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\r\n'),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='English11_Results_Demo.csv';a.click();URL.revokeObjectURL(a.href)}render();
-</script></body></html>
+function safe(value){
+  return String(value??"").replace(/[&<>"']/g,function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  });
+}
+
+function record(type,score){
+  db.results.push({
+    type:type,
+    score:Math.round(score*10)/10,
+    date:new Date().toLocaleString("vi-VN")
+  });
+  save();
+}
+
+const units=[
+"A Long and Healthy Life",
+"The Generation Gap",
+"Cities of the Future",
+"ASEAN and Viet Nam",
+"Global Warming",
+"Preserving Our Heritage",
+"Education Options for School-Leavers",
+"Becoming Independent",
+"Social Issues",
+"The Ecosystem"
+];
+
+const lessons=[
+["getting","Getting Started","Healthy habits and conversation"],
+["pronunciation","Pronunciation","Strong and weak forms"],
+["vocabulary","Vocabulary","Health and fitness"],
+["grammar","Grammar","Past Simple vs Present Perfect"],
+["reading","Reading","A healthy lifestyle"],
+["speaking","Speaking","Talking about healthy habits"],
+["listening","Listening","Food and health"],
+["writing","Writing","Writing about healthy habits"],
+["communication","Communication & Culture","Everyday communication"],
+["looking","Looking Back & Project","Review and project"]
+];
+
+const questions=[
+{
+q:"I ____ this book three times.",
+o:["read","have read","am reading","was reading"],
+a:1,
+e:"Present perfect diễn tả trải nghiệm đến hiện tại."
+},
+{
+q:"She ____ to the gym yesterday.",
+o:["has gone","goes","went","has been"],
+a:2,
+e:"Yesterday là thời điểm quá khứ xác định, dùng past simple."
+},
+{
+q:"Which word means being physically strong and healthy?",
+o:["fitness","disease","stress","symptom"],
+a:0,
+e:"Fitness nghĩa là thể lực, tình trạng khỏe mạnh."
+},
+{
+q:"We ____ our grandparents since last summer.",
+o:["didn't visit","haven't visited","don't visit","weren't visiting"],
+a:1,
+e:"Since last summer thường đi với present perfect trong ngữ cảnh này."
+},
+{
+q:"A balanced ____ includes different kinds of healthy food.",
+o:["habit","diet","fever","virus"],
+a:1,
+e:"Balanced diet nghĩa là chế độ ăn cân bằng."
+},
+{
+q:"My brother ____ a marathon in 2023.",
+o:["has run","runs","ran","is running"],
+a:2,
+e:"In 2023 là mốc quá khứ xác định, dùng past simple."
+},
+{
+q:"Mai walks for 30 minutes every day. Which habit is mentioned?",
+o:["Skipping breakfast","Daily walking","Sleeping late","Drinking soda"],
+a:1,
+e:"Mai có thói quen đi bộ mỗi ngày."
+},
+{
+q:"You should ____ regularly to stay healthy.",
+o:["exercise","illness","medicine","symptom"],
+a:0,
+e:"Exercise regularly nghĩa là tập thể dục thường xuyên."
+}
+];
+
+function card(title,description,button=""){
+  return `<div class="card"><h3>${title}</h3>
+  <p class="muted">${description}</p>${button}</div>`;
+}
+
+function switchZone(z){
+  zone=z;
+  page="home";
+  document.getElementById("studentTab").classList.toggle("active",z==="student");
+  document.getElementById("teacherTab").classList.toggle("active",z==="teacher");
+  render();
+}
+
+function go(p,l){
+  page=p;
+  if(l)lesson=l;
+  questionIndex=0;
+  selected=null;
+  checked=false;
+  practiceAnswers={};
+  if(p==="game"){gameIndex=0;gameScore=0;}
+  render();
+  window.scrollTo(0,0);
+}
+
+function render(){
+  if(zone==="teacher"){
+    renderTeacher();
+    return;
+  }
+
+  if(page==="home"){
+    const count=db.results.length;
+    const average=count?
+      (db.results.reduce((s,r)=>s+r.score,0)/count).toFixed(1):"—";
+
+    app.innerHTML=`
+    <div class="hero">
+      <span class="pill">ENGLISH 11 • GLOBAL SUCCESS</span>
+      <h2>Welcome to English 11 Smart Learning Hub 🌿</h2>
+      <p>Học tập, luyện tập, chơi trò chơi và kiểm tra kiến thức.</p>
+      <button class="btn" onclick="go('units')">📚 Khám phá bài học</button>
+      <button class="btn alt" onclick="go('results')">📊 Kết quả của tôi</button>
+    </div>
+    <div class="grid">
+      ${card("📚 Learn","Học theo Unit và Lesson",
+      `<button class="btn" onclick="go('units')">Bắt đầu học</button>`)}
+      ${card("✍️ Practise","Bài tập có đáp án và giải thích",
+      `<button class="btn" onclick="go('practice')">Luyện tập</button>`)}
+      ${card("🎮 Play","Trò chơi Grammar Race",
+      `<button class="btn" onclick="go('game')">Chơi ngay</button>`)}
+      ${card("📝 Test Center","Hai bài kiểm tra mẫu Unit 1",
+      `<button class="btn" onclick="go('tests')">Làm bài</button>`)}
+    </div>
+    <h2>📊 Tiến độ học tập</h2>
+    <div class="grid">
+      ${card("Lượt hoàn thành",`<h2>${count}</h2>`)}
+      ${card("Điểm trung bình",`<h2>${average}/10</h2>`)}
+      ${card("Bài được giao",`<h2>${db.assignments.length}</h2>`)}
+    </div>
+    <p class="notice">Đây là phiên bản demo. Chức năng đồng bộ nhiều tài khoản sẽ được bổ sung sau.</p>`;
+    return;
+  }
+
+  if(page==="units"){
+    app.innerHTML=`
+    <h2>📚 Danh sách 10 Units</h2>
+    <button class="btn alt" onclick="go('home')">← Trang chủ</button>
+    <div class="grid">
+    ${units.map((u,i)=>card(
+      `Unit ${i+1}`,
+      safe(u),
+      i===0?
+      `<button class="btn" onclick="go('lessons')">Mở Unit 1</button>`:
+      `<button class="btn alt" disabled>Đang biên soạn</button>`
+    )).join("")}
+    </div>`;
+    return;
+  }
+
+  if(page==="lessons"){
+    app.innerHTML=`
+    <h2>Unit 1 – A Long and Healthy Life</h2>
+    <button class="btn alt" onclick="go('units')">← Danh sách Units</button>
+    <div class="grid">
+    ${lessons.map(x=>card(
+      safe(x[1]),safe(x[2]),
+      `<button class="btn" onclick="go('learn','${x[0]}')">Mở bài học</button>`
+    )).join("")}
+    </div>`;
+    return;
+  }
+
+  if(page==="learn"){
+    renderLesson();
+    return;
+  }
+
+  if(page==="practice"){
+    renderPractice();
+    return;
+  }
+
+  if(page==="game"){
+    renderGame();
+    return;
+  }
+
+  if(page==="tests"){
+    renderTests();
+    return;
+  }
+
+  if(page==="taking"){
+    renderTaking();
+    return;
+  }
+
+  if(page==="results"){
+    renderResults();
+    return;
+  }
+}
+
+function renderLesson(){
+  let content="";
+  if(lesson==="grammar"){
+    content=`
+    <h3>Past Simple</h3>
+    <p><b>Form:</b> S + V2/ed</p>
+    <p>Dùng cho hành động đã kết thúc tại thời điểm xác định trong quá khứ.</p>
+    <p><b>Example:</b> She went jogging yesterday.</p>
+    <h3>Present Perfect</h3>
+    <p><b>Form:</b> S + have/has + V3/ed</p>
+    <p>Dùng để nói về trải nghiệm hoặc sự việc liên quan đến hiện tại.</p>
+    <p><b>Example:</b> I have exercised regularly for two months.</p>
+    <p><b>Remember:</b> Cần dựa vào ngữ cảnh để chọn thì phù hợp.</p>`;
+  }else if(lesson==="vocabulary"){
+    content=`
+    <h3>Health and Fitness</h3>
+    <p><b>balanced diet:</b> chế độ ăn cân bằng</p>
+    <p><b>fitness:</b> thể lực</p>
+    <p><b>healthy habit:</b> thói quen lành mạnh</p>
+    <p><b>exercise regularly:</b> tập thể dục thường xuyên</p>
+    <p><b>symptom:</b> triệu chứng</p>`;
+  }else if(lesson==="pronunciation"){
+    content=`
+    <h3>Strong and Weak Forms</h3>
+    <p>Trợ động từ có thể được phát âm ở dạng mạnh hoặc dạng yếu.</p>
+    <p>Dạng mạnh thường xuất hiện khi cần nhấn mạnh hoặc trong câu trả lời ngắn.</p>
+    <p><b>Example:</b> Yes, I HAVE.</p>
+    <p class="notice">Audio đang được biên soạn.</p>`;
+  }else{
+    content=`
+    <h3>Nội dung bài học</h3>
+    <p>Phần này đang được biên soạn và kiểm duyệt theo sách Global Success.</p>
+    <p>Bạn có thể luyện tập Unit 1 ngay trong phiên bản demo.</p>`;
+  }
+
+  const item=lessons.find(x=>x[0]===lesson);
+  app.innerHTML=`
+  <h2>${safe(item?item[1]:"Lesson")}</h2>
+  <button class="btn alt" onclick="go('lessons')">← Learning Path</button>
+  <div class="card">
+  <span class="pill">LEARN</span>
+  ${content}
+  <button class="btn" onclick="go('practice')">Luyện tập →</button>
+  </div>`;
+}
+
+function renderPractice(){
+  const q=questions[questionIndex];
+  app.innerHTML=`
+  <h2>✍️ Practise – Unit 1</h2>
+  <button class="btn alt" onclick="go('home')">← Trang chủ</button>
+  <div class="card">
+  <span class="pill">Câu ${questionIndex+1}/${questions.length}</span>
+  <h3>${safe(q.q)}</h3>
+  ${q.o.map((o,i)=>`
+    <button class="option
+    ${selected===i?"selected":""}
+    ${checked&&i===q.a?"correct":""}
+    ${checked&&selected===i&&i!==q.a?"wrong":""}"
+    onclick="choose(${i})" ${checked?"disabled":""}>
+    ${"ABCD"[i]}. ${safe(o)}
+    </button>`).join("")}
+  ${checked?`<div class="feedback">
+    <b>${selected===q.a?"✓ Chính xác!":"✗ Chưa đúng."}</b>
+    <p>${safe(q.e)}</p>
+    </div>`:""}
+  <button class="btn" onclick="${checked?"nextPractice()":"checkPractice()"}"
+    ${selected===null?"disabled":""}>
+    ${checked?"Câu tiếp theo →":"Kiểm tra đáp án"}
+  </button>
+  </div>`;
+}
+
+function choose(i){
+  if(!checked){
+    selected=i;
+    renderPractice();
+  }
+}
+
+function checkPractice(){
+  if(selected===null)return;
+  practiceAnswers[questionIndex]=selected;
+  checked=true;
+  renderPractice();
+}
+
+function nextPractice(){
+  if(questionIndex<questions.length-1){
+    questionIndex++;
+    selected=null;
+    checked=false;
+    renderPractice();
+  }else{
+    const correct=questions.filter((q,i)=>practiceAnswers[i]===q.a).length;
+    record("Practise Unit 1",correct/questions.length*10);
+    alert(`Hoàn thành: ${correct}/${questions.length} câu đúng!`);
+    go("results");
+  }
+}
+
+function renderGame(){
+  const sequence=[2,4,7,0,1];
+
+  if(gameIndex>=sequence.length){
+    const score=gameScore;
+    record("Grammar Race",score/sequence.length*10);
+    app.innerHTML=`
+    <div class="hero">
+      <h2>🏆 Hoàn thành Grammar Race!</h2>
+      <h3>Đúng ${score}/${sequence.length} câu</h3>
+      <button class="btn" onclick="go('game')">Chơi lại</button>
+      <button class="btn alt" onclick="go('home')">Trang chủ</button>
+    </div>`;
+    gameIndex=0;
+    gameScore=0;
+    return;
+  }
+
+  const q=questions[sequence[gameIndex]];
+  app.innerHTML=`
+  <h2>🎮 Grammar Race</h2>
+  <button class="btn alt" onclick="go('home')">← Thoát</button>
+  <div class="card">
+    <span class="pill">Vòng ${gameIndex+1}/${sequence.length}</span>
+    <h3>${safe(q.q)}</h3>
+    ${q.o.map((o,i)=>`
+      <button class="option" onclick="gameAnswer(${i})">
+      ${"ABCD"[i]}. ${safe(o)}</button>
+    `).join("")}
+  </div>`;
+}
+
+function gameAnswer(i){
+  const sequence=[2,4,7,0,1];
+  const q=questions[sequence[gameIndex]];
+  if(i===q.a)gameScore++;
+  gameIndex++;
+  renderGame();
+}
+
+const testSets={
+  1:[0,1,2,3,4,5],
+  2:[5,4,3,2,1,0]
+};
+
+function renderTests(){
+  app.innerHTML=`
+  <h2>📝 Unit 1 – Test Center</h2>
+  <button class="btn alt" onclick="go('home')">← Trang chủ</button>
+  <p class="notice">Hai đề dưới đây là bản mẫu 6 câu/đề.
+  Hệ thống đề chính thức 40 câu/50 phút sẽ được phát triển sau.</p>
+  <div class="grid">
+    ${[1,2].map(i=>card(
+      `Unit 1 – Test 0${i}`,
+      "6 câu trắc nghiệm • Chấm điểm tự động",
+      `<button class="btn" onclick="startTest(${i})">Bắt đầu</button>`
+    )).join("")}
+  </div>`;
+}
+
+function startTest(id){
+  currentTest=id;
+  testAnswers={};
+  testStarted=Date.now();
+  page="taking";
+  render();
+}
+
+function renderTaking(){
+  const ids=testSets[currentTest];
+  app.innerHTML=`
+  <h2>📝 Unit 1 – Test 0${currentTest}</h2>
+  <p class="notice">Bài kiểm tra mẫu, chưa giới hạn thời gian.</p>
+  <div class="card">
+    ${ids.map((id,j)=>{
+      const q=questions[id];
+      return `<div style="padding:14px 0;border-bottom:1px solid #e1e5f2">
+        <b>Câu ${j+1}. ${safe(q.q)}</b>
+        ${q.o.map((o,k)=>`
+          <button class="option ${testAnswers[j]===k?"selected":""}"
+          onclick="testAnswer(${j},${k})">
+          ${"ABCD"[k]}. ${safe(o)}
+          </button>`).join("")}
+      </div>`;
+    }).join("")}
+    <button class="btn" onclick="submitTest()">Nộp bài</button>
+  </div>`;
+}
+
+function testAnswer(j,k){
+  testAnswers[j]=k;
+  renderTaking();
+}
+
+function submitTest(){
+  const ids=testSets[currentTest];
+  const correct=ids.filter((id,j)=>testAnswers[j]===questions[id].a).length;
+  const score=correct/ids.length*10;
+  record(`Unit 1 – Test 0${currentTest}`,score);
+
+  app.innerHTML=`
+  <div class="hero">
+    <h2>🎉 Đã nộp bài!</h2>
+    <h2>${score.toFixed(1)}/10</h2>
+    <p>Đúng ${correct}/${ids.length} câu.</p>
+    <button class="btn" onclick="go('results')">Xem kết quả</button>
+    <button class="btn alt" onclick="go('tests')">Test Center</button>
+  </div>
+  <h2>Giải thích đáp án</h2>
+  ${ids.map((id,j)=>{
+    const q=questions[id];
+    return card(`Câu ${j+1}: ${safe(q.q)}`,
+      `Đáp án: ${"ABCD"[q.a]}. ${safe(q.o[q.a])}<p>${safe(q.e)}</p>`);
+  }).join("")}`;
+}
+
+function renderResults(){
+  app.innerHTML=`
+  <h2>📊 Kết quả học tập</h2>
+  <button class="btn alt" onclick="go('home')">← Trang chủ</button>
+  <div class="card">
+  ${db.results.length?`
+  <table>
+    <tr><th>Hoạt động</th><th>Điểm</th><th>Ngày</th></tr>
+    ${db.results.slice().reverse().map(r=>`
+      <tr>
+      <td>${safe(r.type)}</td>
+      <td>${safe(r.score)}/10</td>
+      <td>${safe(r.date)}</td>
+      </tr>`).join("")}
+  </table>`:"Chưa có kết quả."}
+  </div>
+  <h2>📋 Bài được giao</h2>
+  <div class="card">
+    ${db.assignments.length?
+      db.assignments.map(a=>`
+      <p>${safe(a.name)} – Hạn: ${safe(a.deadline||"Chưa đặt")}
+      <button class="btn" onclick="startTest(${Number(a.test)===2?2:1})">
+      Làm bài</button></p>`).join(""):
+      "Chưa có bài được giao."}
+  </div>`;
+}
+
+function renderTeacher(){
+  const count=db.results.length;
+  const avg=count?
+    (db.results.reduce((s,r)=>s+r.score,0)/count).toFixed(1):"—";
+
+  app.innerHTML=`
+  <div class="hero">
+    <h2>👩‍🏫 Teacher Studio</h2>
+    <p>Không gian quản lý học tập – phiên bản demo</p>
+  </div>
+  <div class="grid">
+    ${card("Lượt hoàn thành",`<h2>${count}</h2>`)}
+    ${card("Điểm trung bình",`<h2>${avg}/10</h2>`)}
+    ${card("Bài đã giao",`<h2>${db.assignments.length}</h2>`)}
+  </div>
+  <h2>📋 Giao bài</h2>
+  <div class="card">
+    <label>Tên bài giao</label>
+    <input id="assignName" value="Unit 1 – Test 01">
+    <label>Chọn đề</label>
+    <select id="assignTest">
+      <option value="1">Test 01</option>
+      <option value="2">Test 02</option>
+    </select>
+    <label>Hạn nộp</label>
+    <input id="assignDate" type="date">
+    <button class="btn" onclick="addAssignment()">+ Giao bài</button>
+    <p class="muted">Bài giao chỉ lưu trên trình duyệt này.</p>
+  </div>
+  <h2>📊 Kết quả học sinh demo</h2>
+  <div class="card">
+    ${db.results.length?`
+      <table>
+      <tr><th>Hoạt động</th><th>Điểm</th><th>Ngày</th></tr>
+      ${db.results.slice().reverse().map(r=>`
+        <tr><td>${safe(r.type)}</td>
+        <td>${safe(r.score)}/10</td>
+        <td>${safe(r.date)}</td></tr>`).join("")}
+      </table>`:"Chưa có dữ liệu."}
+    <button class="btn alt" onclick="exportCSV()">⬇ Xuất CSV</button>
+  </div>
+  <h2>Danh sách bài đã giao</h2>
+  <div class="card">
+    ${db.assignments.length?
+      db.assignments.map(a=>`
+        <p>📝 ${safe(a.name)} – Test ${safe(a.test)}
+        – Hạn ${safe(a.deadline||"Chưa đặt")}</p>
+      `).join(""):"Chưa có bài giao."}
+  </div>`;
+}
+
+function addAssignment(){
+  const name=document.getElementById("assignName").value.trim();
+  const test=Number(document.getElementById("assignTest").value);
+  const deadline=document.getElementById("assignDate").value;
+
+  if(!name){
+    alert("Vui lòng nhập tên bài.");
+    return;
+  }
+
+  db.assignments.push({name,test,deadline});
+  save();
+  renderTeacher();
+  alert("Đã giao bài trong phiên bản demo!");
+}
+
+function exportCSV(){
+  const rows=[
+    ["Hoạt động","Điểm / 10","Ngày"],
+    ...db.results.map(r=>[r.type,r.score,r.date])
+  ];
+
+  const csv="\uFEFF"+rows.map(row=>
+    row.map(value=>'"'+String(value).replace(/"/g,'""')+'"').join(",")
+  ).join("\r\n");
+
+  const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement("a");
+  link.href=url;
+  link.download="English11_Results.csv";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+render();
+</script>
+</body>
+</html>
