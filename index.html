@@ -63,6 +63,14 @@ Bản mẫu học tập năm học 2026–2027 • Dữ liệu lưu trên trình
 <script>
 "use strict";
 
+const SUPABASE_URL = "https://fkharblzowborvywjpbx.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_1T2JLpwTueTdNjbeUpZH4w_TbwfCOx5";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 const STORAGE_KEY="english11_hub_demo_v2";
 
 function loadData(){
