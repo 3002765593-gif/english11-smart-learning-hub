@@ -140,6 +140,35 @@ document.getElementById("app").scrollIntoView({ behavior: "smooth" });
 }
 
   async function submitStudentLogin() {
+async function saveLearningResult(unitNumber, activityType, activityName, score) {
+  const { data: { user }, error: userError } =
+    await supabaseClient.auth.getUser();
+
+  if (userError || !user) {
+    alert("Vui lòng đăng nhập để lưu điểm.");
+    return false;
+  }
+
+  const { error } = await supabaseClient
+    .from("learning_results")
+    .insert({
+      student_id: user.id,
+      unit_number: unitNumber,
+      activity_type: activityType,
+      activity_name: activityName,
+      score: score
+    });
+
+  if (error) {
+    console.error("Lỗi lưu điểm:", error);
+    alert("Chưa lưu được điểm: " + error.message);
+    return false;
+  }
+
+  alert("Đã lưu kết quả học tập thành công!");
+  return true;
+}
+
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
   const status = document.getElementById("loginStatus");
