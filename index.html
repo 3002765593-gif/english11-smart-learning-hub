@@ -117,7 +117,9 @@ async function loginStudent(email, password) {
 
   alert("Đăng nhập thành công! Mã học sinh: " + profile.student_code);
 }
-
+document.getElementById("studentLogin").style.display = "none";
+document.getElementById("loginPassword").value = "";
+document.getElementById("app").scrollIntoView({ behavior: "smooth" });
 async function submitStudentLogin() {
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
