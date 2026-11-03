@@ -50,6 +50,9 @@ footer{text-align:center;color:#77829b;padding:30px;font-size:12px}
 <nav>
 <button id="studentTab" class="active" onclick="switchZone('student')">🎒 Student Zone</button>
 <button id="teacherTab" onclick="switchZone('teacher')">👩‍🏫 Teacher Studio</button>
+  <button id="logoutBtn" type="button" onclick="logoutStudent()" style="display:none;">
+  🚪 Đăng xuất
+</button>
 </nav>
 </header>
 
@@ -116,10 +119,27 @@ async function loginStudent(email, password) {
   }
   alert("Đăng nhập thành công! Mã học sinh: " + profile.student_code);
 document.getElementById("studentLogin").style.display = "none";
+  document.getElementById("logoutBtn").style.display = "inline-block";
 document.getElementById("loginPassword").value = "";
 document.getElementById("app").scrollIntoView({ behavior: "smooth" });
-} 
-async function submitStudentLogin() {
+} async function logoutStudent() {
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    alert("Đăng xuất thất bại: " + error.message);
+    return;
+  }
+
+  document.getElementById("studentLogin").style.display = "block";
+  document.getElementById("logoutBtn").style.display = "none";
+  document.getElementById("loginEmail").value = "";
+  document.getElementById("loginPassword").value = "";
+  document.getElementById("loginStatus").textContent = "";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+  async function submitStudentLogin() {
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
   const status = document.getElementById("loginStatus");
